@@ -3,6 +3,9 @@ package br.ufs.dcomp.ExemploServidorMultithread;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * 
@@ -33,7 +36,10 @@ public class ThreadLembrete extends Thread
             
             // Envio dos lembretes para o cliente que requisitou
             for (int i = 1; i <= total; i++){
-                out.writeUTF("Tomar "+ nome + " "+i);
+                LocalDateTime agora = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                String dataHoraFormatada = agora.format(formatter);
+                out.writeUTF("Tomar "+ nome + " "+i+ " em "+ dataHoraFormatada);
                 Thread.sleep(1000*intervalo);
             }
 
